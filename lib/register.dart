@@ -1,11 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:believable/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:believable/homePage.dart';
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _email, _name, _password, _confirmpass, _mobile;
+
+  checkAuthentication() async{
+    _auth.onAuthStateChanged.listen((user) async {
+    if(user!=null && (_password==_confirmpass)) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
+    }
+    });
+  }
+  register() async{
+    if(_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      try {
+        FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+            email: _email, password: _password);
+        if (user != null) {
+           UserUpdateInfo updateuser = UserUpdateInfo();
+           updateuser.displayName = _name;
+            user.updateProfile(updateuser);
+          // await Navigator.pushReplacementNamed(context,"/") ;
+
+        }
+      }
+      catch (e) {
+        showError(e.message);
+        print(e);
+      }
+    }
+  }
+  showError(String errormessage) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('ERROR'),
+            content: Text(errormessage),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'))
+            ],
+          );
+        });
+  }
+  @override
+  void initState(){
+    super.initState();
+    this.checkAuthentication();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,12 +207,12 @@ class _RegisterState extends State<Register> {
                   minWidth: 300,
                   height: 50,
                   child: RaisedButton(
-                    disabledColor: Colors.orange,
-                    disabledElevation: 5,
+                    color: Colors.orange,
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     ),
-                    onPressed: null,
+                    onPressed: register,
                     child: Text('REGISTER',style: TextStyle(color: Colors.white),),
                   ),
                 ),

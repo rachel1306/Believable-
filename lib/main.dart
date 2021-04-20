@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:believable/register.dart';
-void main() {
-  runApp(
-      MaterialApp(
-          home: MyApp())
-  );
+import 'package:firebase_core/firebase_core.dart';
+void main() async{
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
