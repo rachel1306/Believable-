@@ -20,9 +20,9 @@ class _homePageState extends State<homePage> {
   }
 
   getUser() async{
-    FirebaseUser _user = await _auth.currentUser();
+    User _user = _auth.currentUser;
     await _user?.reload();
-    _user=await _auth.currentUser();
+    _user = _auth.currentUser;
     if (_user != null) {
       setState(() {
         this.user = _user;
@@ -32,8 +32,67 @@ class _homePageState extends State<homePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Home'),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Image(
+                    image: new AssetImage('assets/71IHR8nsZhL._UX679_.jpg'),
+                    fit: BoxFit.cover,
+                    height: 200,
+                    width: 200,
+                    alignment: Alignment.center,
+                    colorBlendMode: BlendMode.darken
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          ButtonTheme(
+                            minWidth: 50,
+                            child: RaisedButton(
+                                onPressed: null,
+                                shape: CircleBorder(),
+                                elevation: 5,
+                                disabledColor: Colors.white54,
+                                child: Icon(Icons.favorite,size: 50,)
+                            ),
+                          ),
+                          ButtonTheme(
+                            minWidth: 50,
+                            child: RaisedButton(
+                                elevation: 2,
+                                onPressed: null,
+                                shape: CircleBorder(),
+                                child: Icon(Icons.share,size: 50,)
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ]
+            ),
+            Row(
+              children: [
+                RaisedButton(
+                  onPressed: null,
+                  child: Text('ADD TO CART'),
+                ),
+                RaisedButton(
+                  onPressed: null,
+                  child: null,
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

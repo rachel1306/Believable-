@@ -10,9 +10,9 @@ class _LoginState extends State<Login> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _email, _password;
+  final _email=TextEditingController(), _password=TextEditingController();
   checkAuthentication() async{
-  _auth.onAuthStateChanged.listen((user) {
+  _auth.authStateChanges().listen((user) {
     if(user!=null){
       Navigator.push(context, MaterialPageRoute(builder: (context) => homePage()));
     }
@@ -28,7 +28,8 @@ class _LoginState extends State<Login> {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       try{
-        FirebaseUser user = await _auth.signInWithEmailAndPassword(email: _email, password: _password);
+        await _auth.signInWithEmailAndPassword(
+            email: _email.text, password: _password.text);
       }
       catch(e){
 
@@ -77,10 +78,8 @@ class _LoginState extends State<Login> {
                     height: 150,
                     child: Padding(
                       padding: EdgeInsets.only(left: 15,top: 100),
-                      child: TextFormField(
-                        validator: (input){
-                          if(input.isEmpty) return 'Enter E-mail';
-                        },
+                      child: TextField(
+                        controller: _email,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'E-mail ID',
@@ -89,7 +88,6 @@ class _LoginState extends State<Login> {
                               ),
                               prefixIcon: Icon(Icons.email_outlined,color: Color(0xFF555555),)
                           ),
-                          onSaved: (input) => _email=input,
                       ),
                     ),
                   ),
@@ -102,7 +100,8 @@ class _LoginState extends State<Login> {
                     height: 50,
                     child: Padding(
                       padding: EdgeInsets.only(left: 15,),
-                      child: TextFormField(
+                      child: TextField(
+                        controller: _password,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Password',
@@ -113,7 +112,6 @@ class _LoginState extends State<Login> {
                             suffixIcon: Icon(Icons.remove_red_eye_outlined),
                         ),
                         obscureText: true,
-                          onSaved: (input) => _password=input,
                       ),
                     ),
                   ),
