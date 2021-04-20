@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:believable/login.dart';
 class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
@@ -16,7 +17,7 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     children: [
                       new Padding(
-                        padding: EdgeInsets.only(left: 20,top: 50),
+                        padding: EdgeInsets.only(left: 20,top: 80),
                         child:  Text('Register in to get started',style: new TextStyle(fontSize: 20),),
                       ),
                       new Padding(
@@ -33,22 +34,25 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 50,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 15,top: 30),
-                            child: TextField(
-                              decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Name',
-                              hintStyle: TextStyle(
-                                color: Color(0xFF555555),
-                              ),
-                              prefixIcon: Icon(Icons.person_outline,color: Color(0xFF555555),)
+                      Padding(
+                        padding: EdgeInsets.only(top: 50),
+                        child: Container(
+                          height: 40,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 15),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Name',
+                                hintStyle: TextStyle(
+                                  color: Color(0xFF555555),
+                                ),
+                                prefixIcon: Icon(Icons.person_outline,color: Color(0xFF555555),)
+                            ),
                           ),
                         ),
-                      ),
                     ),
+                      ),
                     Expanded(child: Divider(
                       height: 1,
                       color: Colors.black,
@@ -65,7 +69,7 @@ class _RegisterState extends State<Register> {
                           hintStyle: TextStyle(
                           color: Color(0xFF555555),
                           ),
-                          prefixIcon: Icon(Icons.phone,color: Color(0xFF555555),)
+                          prefixIcon: Icon(Icons.email_outlined,color: Color(0xFF555555),)
                         ),
                       ),
                     ),
@@ -87,7 +91,7 @@ class _RegisterState extends State<Register> {
                             hintStyle: TextStyle(
                             color: Color(0xFF555555),
                           ),
-                          prefixIcon: Icon(Icons.email_outlined,color: Color(0xFF555555),)
+                          prefixIcon: Icon(Icons.phone,color: Color(0xFF555555),)
                           ),
                         ),
                       ),
@@ -158,7 +162,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 15),
+                  margin: EdgeInsets.symmetric(vertical: 20),
                   child: Align(
                     alignment: Alignment.center,
                     child: Row(
@@ -170,7 +174,9 @@ class _RegisterState extends State<Register> {
                           ),),
                         new GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, "myRoute");
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Login()));
                             },
                           child: new Text("  Login",style: TextStyle(
                             fontWeight: FontWeight.bold,

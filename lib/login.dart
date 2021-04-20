@@ -8,20 +8,108 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Text('Log in to get started'),
-            Text('Experience the all new App!'),
-            Container(
-              child: Column(
-                children: [
-
-                ],
-              ),
+      body: Column(
+        children: [
+          new Align(
+            alignment: Alignment.topLeft,
+            child: Column(
+              children: [
+                new Padding(
+                  padding: EdgeInsets.only(left: 10,top: 80),
+                  child:  Text('Log in to get started',style: new TextStyle(fontSize: 20),),
+                ),
+                new Padding(
+                  padding: EdgeInsets.only(left: 25,top: 20),
+                  child:  Text('Experience the all new App!',style: new TextStyle(fontSize: 16),),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            width: 360,
+            height: 200,
+            child: Column(
+              children: [
+                Container(
+                  height: 150,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15,top: 100),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'E-mail ID',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF555555),
+                          ),
+                          prefixIcon: Icon(Icons.email_outlined,color: Color(0xFF555555),)
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: Divider(
+                  color: Colors.black,
+                  indent: 20,
+                  endIndent: 20,)),
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  height: 50,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15,),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Password',
+                          hintStyle: TextStyle(
+                            color: Color(0xFF555555),
+                          ),
+                          prefixIcon: Icon(Icons.lock,color: Color(0xFF555555),),
+                          suffixIcon: Icon(Icons.remove_red_eye_outlined)
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(child: Divider(
+                  color: Colors.black,
+                  indent: 20,
+                  endIndent: 20,)),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(top: 40,right: 30),
+              child: Text('Use Mobile Number',
+                style: TextStyle(
+                  color: Colors.orange,
+                ),),
+            ),
+          ),
+          SizedBox(
+            height: 230,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Spacer(),
+                Divider(
+                  color: Colors.black,
+                ),
+                FlatButton(
+                  onPressed: null,
+                  minWidth: 350,
+                  disabledColor: Colors.orange,
+                  disabledTextColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Text('Login'),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
